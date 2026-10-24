@@ -434,6 +434,4 @@ AI assistance was utilized in this project for the following key areas:
 
 ---
 
-## ⚖️ License
-Internal proprietary software developed for UK Energy Utility Day-Ahead Trading Evaluation.
 
