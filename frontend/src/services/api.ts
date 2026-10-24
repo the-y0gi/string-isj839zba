@@ -5,7 +5,8 @@ import type {
   HealthResponse
 } from '../types/api';
 
-const API_BASE = '/api';
+const ENV_URL = (import.meta.env.VITE_API_URL || '').trim().replace(/\/$/, '');
+const API_BASE = ENV_URL ? `${ENV_URL}/api` : '/api';
 
 export async function fetchHealth(): Promise<HealthResponse> {
   const res = await fetch(`${API_BASE}/health`);
