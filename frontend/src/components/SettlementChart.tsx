@@ -45,61 +45,61 @@ export const SettlementChart: React.FC<SettlementChartProps> = ({
   });
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 p-6 mb-6 shadow-xs">
-      <div className="flex items-center justify-between flex-wrap gap-4 mb-5">
+    <div className="bg-white rounded-2xl border border-slate-200 p-3.5 sm:p-6 mb-4 sm:mb-6 shadow-xs">
+      <div className="flex items-start sm:items-center justify-between flex-col sm:flex-row gap-3 mb-4 sm:mb-5">
         <div>
-          <div className="flex items-center gap-2">
-            <h2 className="text-lg font-extrabold text-slate-900">
+          <div className="flex items-center gap-2 flex-wrap">
+            <h2 className="text-base sm:text-lg font-extrabold text-slate-900 leading-snug">
               Day-Ahead Wind Generation vs Actuals (HH 1 to 48)
             </h2>
-            <span className="bg-[#E8F7EE] text-[#0F8A43] border border-[#A7F3D0] px-2.5 py-0.5 text-xs font-bold uppercase rounded-full">
+            <span className="bg-[#E8F7EE] text-[#0F8A43] border border-[#A7F3D0] px-2 py-0.5 text-[10px] sm:text-xs font-bold uppercase rounded-full whitespace-nowrap">
               Gate Closure Matched
             </span>
           </div>
-          <p className="text-xs text-slate-500 mt-1">
-            Delivery Date: <strong className="text-slate-900">{deliveryDate}</strong> | Decision Cutoff: <strong className="text-slate-900">{decisionCutoff}</strong> (No lookahead bias)
+          <p className="text-[11px] sm:text-xs text-slate-500 mt-1">
+            Delivery Date: <strong className="text-slate-900">{deliveryDate}</strong> | Decision Cutoff: <strong className="text-slate-900">{decisionCutoff}</strong>
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="grid grid-cols-3 sm:flex items-center gap-1.5 sm:gap-2 w-full sm:w-auto">
           <button
             onClick={() => setShowActual(!showActual)}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer transition border ${
+            className={`px-2 sm:px-3 py-1.5 rounded-lg text-[11px] sm:text-xs font-bold cursor-pointer transition border text-center justify-center flex items-center ${
               showActual
                 ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
                 : 'bg-white text-slate-400 border-slate-200'
             }`}
           >
-            ● Actual Wind (MW)
+            ● Actual
           </button>
 
           <button
             onClick={() => setShowForecast(!showForecast)}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer transition border ${
+            className={`px-2 sm:px-3 py-1.5 rounded-lg text-[11px] sm:text-xs font-bold cursor-pointer transition border text-center justify-center flex items-center ${
               showForecast
                 ? 'bg-sky-50 text-sky-800 border-sky-300'
                 : 'bg-white text-slate-400 border-slate-200'
             }`}
           >
-            -- Day-Ahead Forecast (MW)
+            -- Forecast
           </button>
 
           <button
             onClick={() => setShowErrorBars(!showErrorBars)}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer transition border ${
+            className={`px-2 sm:px-3 py-1.5 rounded-lg text-[11px] sm:text-xs font-bold cursor-pointer transition border text-center justify-center flex items-center ${
               showErrorBars
                 ? 'bg-slate-100 text-slate-800 border-slate-300'
                 : 'bg-white text-slate-400 border-slate-200'
             }`}
           >
-            Error Delta Bars
+            Error Bars
           </button>
         </div>
       </div>
 
-      <div className="w-full h-[420px]">
+      <div className="w-full h-[300px] sm:h-[380px] md:h-[420px]">
         <ResponsiveContainer width="100%" height="100%">
-          <ComposedChart data={chartData} margin={{ top: 10, right: 20, left: 10, bottom: 25 }}>
+          <ComposedChart data={chartData} margin={{ top: 10, right: showErrorBars ? 0 : 5, left: -20, bottom: 20 }}>
             <defs>
               <linearGradient id="actualGradient" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="#0F8A43" stopOpacity={0.35} />
@@ -111,18 +111,18 @@ export const SettlementChart: React.FC<SettlementChartProps> = ({
 
             <XAxis
               dataKey="sp"
+              minTickGap={20}
               tickFormatter={(sp) => `${sp}`}
-              label={{ value: 'Settlement Period (1 - 48)', position: 'insideBottom', offset: -15, fill: '#64748B', fontSize: 12, fontWeight: 600 }}
+              label={{ value: 'Period (1 - 48)', position: 'insideBottom', offset: -12, fill: '#64748B', fontSize: 11, fontWeight: 600 }}
               stroke="#CBD5E1"
-              tick={{ fill: '#64748B', fontSize: 11 }}
+              tick={{ fill: '#64748B', fontSize: 10 }}
             />
 
             <YAxis
               yAxisId="left"
               stroke="#CBD5E1"
-              tick={{ fill: '#64748B', fontSize: 11 }}
-              tickFormatter={(val) => `${(val / 1000).toFixed(1)}k`}
-              label={{ value: 'Generation (MW)', angle: -90, position: 'insideLeft', offset: 0, fill: '#64748B', fontSize: 12, fontWeight: 600 }}
+              tick={{ fill: '#64748B', fontSize: 10 }}
+              tickFormatter={(val) => `${(val / 1000).toFixed(0)}k`}
             />
 
             {showErrorBars && (
@@ -130,14 +130,14 @@ export const SettlementChart: React.FC<SettlementChartProps> = ({
                 yAxisId="right"
                 orientation="right"
                 stroke="#E2E8F0"
-                tick={{ fill: '#94A3B8', fontSize: 10 }}
-                tickFormatter={(val) => `${val > 0 ? '+' : ''}${val}`}
+                tick={{ fill: '#94A3B8', fontSize: 9 }}
+                tickFormatter={(val) => `${val > 0 ? '+' : ''}${(val / 1000).toFixed(1)}k`}
                 domain={['auto', 'auto']}
               />
             )}
 
             <Tooltip content={<CustomTooltip />} />
-            <Legend verticalAlign="top" height={36} />
+            <Legend verticalAlign="top" height={36} wrapperStyle={{ fontSize: '11px', paddingBottom: '4px' }} />
 
             <ReferenceLine yAxisId="left" y={0} stroke="#CBD5E1" />
 
@@ -146,9 +146,9 @@ export const SettlementChart: React.FC<SettlementChartProps> = ({
                 yAxisId="left"
                 type="monotone"
                 dataKey="actual"
-                name="Actual Wind Power (MW)"
+                name="Actual Wind (MW)"
                 stroke="#0F8A43"
-                strokeWidth={2.5}
+                strokeWidth={2}
                 fillOpacity={1}
                 fill="url(#actualGradient)"
               />
@@ -161,10 +161,10 @@ export const SettlementChart: React.FC<SettlementChartProps> = ({
                 dataKey="forecast"
                 name="Day-Ahead Forecast (MW)"
                 stroke="#0284C7"
-                strokeWidth={2.5}
-                strokeDasharray="5 5"
-                dot={{ r: 2, fill: '#0284C7' }}
-                activeDot={{ r: 6, fill: '#0284C7', stroke: '#FFFFFF', strokeWidth: 2 }}
+                strokeWidth={2}
+                strokeDasharray="4 4"
+                dot={{ r: 1.5, fill: '#0284C7' }}
+                activeDot={{ r: 5, fill: '#0284C7', stroke: '#FFFFFF', strokeWidth: 2 }}
               />
             )}
 
@@ -203,10 +203,10 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload }) => {
     const isOver = data.error > 0;
 
     return (
-      <div className="bg-white border border-slate-300 rounded-xl p-3.5 shadow-xl min-w-[220px] text-xs">
+      <div className="bg-white border border-slate-300 rounded-xl p-2.5 sm:p-3.5 shadow-xl min-w-[190px] sm:min-w-[220px] text-xs">
         <div className="flex items-center justify-between border-b border-slate-100 pb-1.5 mb-2">
           <span className="font-extrabold text-slate-900">
-            Period {data.sp} ({data.time} UTC)
+            SP {data.sp} ({data.time} UTC)
           </span>
           <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
             isOver ? 'bg-rose-50 text-rose-700' : 'bg-blue-50 text-blue-700'
@@ -215,7 +215,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload }) => {
           </span>
         </div>
 
-        <div className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-1">
           <div className="flex justify-between">
             <span className="text-slate-500">Actual Wind:</span>
             <strong className="font-mono text-[#0F8A43]">
@@ -224,14 +224,14 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload }) => {
           </div>
 
           <div className="flex justify-between">
-            <span className="text-slate-500">Day-Ahead Forecast:</span>
+            <span className="text-slate-500">Forecast:</span>
             <strong className="font-mono text-sky-600">
               {data.forecast !== null ? `${data.forecast.toLocaleString()} MW` : 'N/A'}
             </strong>
           </div>
 
-          <div className="flex justify-between border-t border-dashed border-slate-200 pt-1.5 mt-0.5">
-            <span className="text-slate-500">Error (Forecast - Actual):</span>
+          <div className="flex justify-between border-t border-dashed border-slate-200 pt-1 mt-0.5">
+            <span className="text-slate-500">Error:</span>
             <strong className={`font-mono ${isOver ? 'text-rose-600' : 'text-blue-600'}`}>
               {data.error > 0 ? `+${data.error.toLocaleString()}` : `${data.error.toLocaleString()}`} MW
             </strong>

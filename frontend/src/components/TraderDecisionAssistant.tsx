@@ -30,42 +30,42 @@ export const TraderDecisionAssistant: React.FC<TraderDecisionAssistantProps> = (
   const recommendedThermalProcure = baseThermalProcure + hedgeBufferMW;
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 p-6 mb-6 shadow-xs">
-      <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
+    <div className="bg-white rounded-2xl border border-slate-200 p-3.5 sm:p-6 mb-4 sm:mb-6 shadow-xs">
+      <div className="flex items-start sm:items-center justify-between mb-4 sm:mb-6 flex-col sm:flex-row gap-3">
         <div>
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-[#E8F7EE] flex items-center justify-center text-[#0F8A43]">
-              <Calculator size={18} />
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#E8F7EE] flex items-center justify-center text-[#0F8A43] shrink-0">
+              <Calculator size={16} />
             </div>
-            <h2 className="text-xl font-extrabold text-slate-900">
+            <h2 className="text-base sm:text-xl font-extrabold text-slate-900 leading-snug">
               Day-Ahead Thermal Power Procurement Decision Lab
             </h2>
           </div>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-[11px] sm:text-xs text-slate-500 mt-1">
             Solves: <strong className="text-slate-900">How much additional thermal power to procure from wholesale market</strong> beyond wind generation.
           </p>
         </div>
 
-        <div className="bg-[#E8F7EE] text-[#0F8A43] border border-[#A7F3D0] px-3 py-1 text-xs font-bold uppercase rounded-full">
-          Delivery Date: {deliveryDate}
+        <div className="bg-[#E8F7EE] text-[#0F8A43] border border-[#A7F3D0] px-2.5 sm:px-3 py-1 text-[10px] sm:text-xs font-bold uppercase rounded-full whitespace-nowrap">
+          Delivery: {deliveryDate}
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-slate-50 p-5 rounded-xl border border-slate-200 mb-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 bg-slate-50 p-3.5 sm:p-5 rounded-xl border border-slate-200 mb-4 sm:mb-6">
         <div>
-          <label className="block text-xs font-bold text-slate-600 uppercase mb-1.5">
+          <label className="block text-[10px] sm:text-xs font-bold text-slate-600 uppercase mb-1">
             Target Settlement Period (HH 1 - 48)
           </label>
           <select
             value={selectedSP}
             onChange={(e) => setSelectedSP(Number(e.target.value))}
-            className="w-full p-2.5 rounded-lg border border-slate-300 bg-white font-mono font-bold text-sm text-slate-900 shadow-xs cursor-pointer"
+            className="w-full p-2 sm:p-2.5 rounded-lg border border-slate-300 bg-white font-mono font-bold text-xs sm:text-sm text-slate-900 shadow-xs cursor-pointer"
           >
             {records.map((r) => {
               const timeStr = r.start_time ? r.start_time.substring(11, 16) : '';
               return (
                 <option key={r.settlement_period} value={r.settlement_period}>
-                  Period {r.settlement_period} ({timeStr} UTC) {r.settlement_period >= 34 && r.settlement_period <= 40 ? '🔥 UK Peak Hour' : ''}
+                  Period {r.settlement_period} ({timeStr} UTC) {r.settlement_period >= 34 && r.settlement_period <= 40 ? '🔥 Peak' : ''}
                 </option>
               );
             })}
@@ -73,7 +73,7 @@ export const TraderDecisionAssistant: React.FC<TraderDecisionAssistantProps> = (
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-slate-600 uppercase mb-1.5">
+          <label className="block text-[10px] sm:text-xs font-bold text-slate-600 uppercase mb-1">
             Forecasted Consumer Demand (MW)
           </label>
           <div className="relative">
@@ -82,7 +82,7 @@ export const TraderDecisionAssistant: React.FC<TraderDecisionAssistantProps> = (
               step="500"
               value={consumerDemandMW}
               onChange={(e) => setConsumerDemandMW(Number(e.target.value))}
-              className="w-full p-2.5 rounded-lg border border-slate-300 bg-white font-mono font-bold text-sm text-slate-900 shadow-xs"
+              className="w-full p-2 sm:p-2.5 rounded-lg border border-slate-300 bg-white font-mono font-bold text-xs sm:text-sm text-slate-900 shadow-xs"
             />
             <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">
               MW
@@ -91,23 +91,23 @@ export const TraderDecisionAssistant: React.FC<TraderDecisionAssistantProps> = (
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-slate-600 uppercase mb-1.5">
-            Risk Tolerance (Statistical Safety Margin)
+          <label className="block text-[10px] sm:text-xs font-bold text-slate-600 uppercase mb-1">
+            Risk Tolerance (Safety Margin)
           </label>
           <div className="flex gap-2">
             <button
               onClick={() => setConfidenceLevel('90')}
-              className={`flex-1 p-2.5 rounded-lg text-xs font-bold cursor-pointer transition border ${
+              className={`flex-1 p-2 sm:p-2.5 rounded-lg text-[11px] sm:text-xs font-bold cursor-pointer transition border ${
                 confidenceLevel === '90'
                   ? 'border-[#0F8A43] bg-[#E8F7EE] text-[#0F8A43] shadow-xs'
                   : 'border-slate-300 bg-white text-slate-600 hover:bg-slate-50'
               }`}
             >
-              90% Safety Margin
+              90% Safety
             </button>
             <button
               onClick={() => setConfidenceLevel('95')}
-              className={`flex-1 p-2.5 rounded-lg text-xs font-bold cursor-pointer transition border ${
+              className={`flex-1 p-2 sm:p-2.5 rounded-lg text-[11px] sm:text-xs font-bold cursor-pointer transition border ${
                 confidenceLevel === '95'
                   ? 'border-[#0F8A43] bg-[#E8F7EE] text-[#0F8A43] shadow-xs'
                   : 'border-slate-300 bg-white text-slate-600 hover:bg-slate-50'
@@ -119,60 +119,60 @@ export const TraderDecisionAssistant: React.FC<TraderDecisionAssistantProps> = (
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch">
-        <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs">
-          <div className="text-xs font-bold text-slate-400 uppercase">
-            1. Consumer Demand
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 items-stretch">
+        <div className="bg-white border border-slate-200 rounded-xl p-3 sm:p-4 shadow-xs">
+          <div className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase">
+            1. Demand
           </div>
-          <div className="font-mono text-2xl font-extrabold text-slate-900 mt-1">
-            {consumerDemandMW.toLocaleString()} <span className="text-sm font-semibold text-slate-400">MW</span>
+          <div className="font-mono text-base sm:text-2xl font-extrabold text-slate-900 mt-0.5 truncate">
+            {consumerDemandMW.toLocaleString()} <span className="text-xs font-semibold text-slate-400">MW</span>
           </div>
-          <div className="text-xs text-slate-500 mt-1">
-            Total required generation
-          </div>
-        </div>
-
-        <div className="bg-[#E8F7EE] border border-[#A7F3D0] rounded-xl p-5 shadow-xs">
-          <div className="text-xs font-bold text-[#0F8A43] uppercase">
-            2. Available Wind Power
-          </div>
-          <div className="font-mono text-2xl font-extrabold text-[#0F8A43] mt-1">
-            - {forecastMW.toLocaleString()} <span className="text-sm font-semibold text-[#0F8A43]">MW</span>
-          </div>
-          <div className="text-xs text-emerald-900 mt-1">
-            Day-ahead expected generation
+          <div className="text-[10px] sm:text-xs text-slate-500 mt-0.5 truncate">
+            Required generation
           </div>
         </div>
 
-        <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs">
-          <div className="text-xs font-bold text-slate-400 uppercase">
+        <div className="bg-[#E8F7EE] border border-[#A7F3D0] rounded-xl p-3 sm:p-4 shadow-xs">
+          <div className="text-[10px] sm:text-xs font-bold text-[#0F8A43] uppercase">
+            2. Available Wind
+          </div>
+          <div className="font-mono text-base sm:text-2xl font-extrabold text-[#0F8A43] mt-0.5 truncate">
+            - {forecastMW.toLocaleString()} <span className="text-xs font-semibold text-[#0F8A43]">MW</span>
+          </div>
+          <div className="text-[10px] sm:text-xs text-emerald-900 mt-0.5 truncate">
+            Expected generation
+          </div>
+        </div>
+
+        <div className="bg-white border border-slate-200 rounded-xl p-3 sm:p-4 shadow-xs">
+          <div className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase">
             3. Net Thermal Gap
           </div>
-          <div className="font-mono text-2xl font-extrabold text-slate-900 mt-1">
-            {baseThermalProcure.toLocaleString()} <span className="text-sm font-semibold text-slate-400">MW</span>
+          <div className="font-mono text-base sm:text-2xl font-extrabold text-slate-900 mt-0.5 truncate">
+            {baseThermalProcure.toLocaleString()} <span className="text-xs font-semibold text-slate-400">MW</span>
           </div>
-          <div className="text-xs text-slate-500 mt-1">
-            Unhedged baseline procurement
+          <div className="text-[10px] sm:text-xs text-slate-500 mt-0.5 truncate">
+            Baseline gap
           </div>
         </div>
 
-        <div className="bg-slate-900 rounded-xl p-5 text-white shadow-lg">
-          <div className="flex items-center gap-1.5 text-xs font-bold text-sky-400 uppercase">
-            <Flame size={14} />
-            <span>Recommended Market Bid</span>
+        <div className="bg-slate-900 rounded-xl p-3 sm:p-4 text-white shadow-lg">
+          <div className="flex items-center gap-1.5 text-[10px] sm:text-xs font-bold text-sky-400 uppercase">
+            <Flame size={12} />
+            <span className="truncate">Recommended Bid</span>
           </div>
-          <div className="font-mono text-2xl font-extrabold text-sky-400 mt-1">
-            {recommendedThermalProcure.toLocaleString()} <span className="text-sm font-semibold text-slate-400">MW</span>
+          <div className="font-mono text-base sm:text-2xl font-extrabold text-sky-400 mt-0.5 truncate">
+            {recommendedThermalProcure.toLocaleString()} <span className="text-xs font-semibold text-slate-400">MW</span>
           </div>
-          <div className="text-xs text-slate-400 mt-1">
-            Includes <strong className="text-slate-100">+{hedgeBufferMW} MW</strong> safety buffer
+          <div className="text-[10px] sm:text-xs text-slate-400 mt-0.5 truncate">
+            Includes <strong className="text-slate-100">+{hedgeBufferMW} MW</strong> buffer
           </div>
         </div>
       </div>
 
-      <div className="mt-5 p-4 rounded-xl bg-emerald-50 border border-emerald-200 flex items-start gap-3">
-        <ShieldCheck size={20} className="text-emerald-700 shrink-0 mt-0.5" />
-        <div className="text-xs text-emerald-900 leading-relaxed">
+      <div className="mt-4 p-3 sm:p-4 rounded-xl bg-emerald-50 border border-emerald-200 flex items-start gap-2.5">
+        <ShieldCheck size={18} className="text-emerald-700 shrink-0 mt-0.5" />
+        <div className="text-[11px] sm:text-xs text-emerald-900 leading-relaxed">
           <strong>Trading Strategy Value:</strong> By applying the <strong>{confidenceLevel}% confidence hedge (+{hedgeBufferMW} MW)</strong>, the trading desk avoids being caught short in the UK Balancing Mechanism (BM) where emergency cashout prices can exceed £250/MWh. On this delivery day, actual wind was <strong>{actualMW.toLocaleString()} MW</strong> (error: {forecastMW - actualMW > 0 ? `over-forecasted by ${forecastMW - actualMW} MW` : `under-forecasted by ${actualMW - forecastMW} MW`}).
         </div>
       </div>

@@ -23,17 +23,17 @@ export const ModelSignalPanel: React.FC<ModelSignalPanelProps> = ({
   const maxOverTime = maxOverRecord?.start_time ? maxOverRecord.start_time.substring(11, 16) : '18:00';
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="bg-[#F0FAF4] border border-[#D1F2DE] rounded-xl p-5 shadow-xs">
-        <div className="text-[11px] font-extrabold text-[#0F8A43] uppercase tracking-wider mb-2">
+    <div className="flex flex-col gap-3 sm:gap-4">
+      <div className="bg-[#F0FAF4] border border-[#D1F2DE] rounded-xl p-3.5 sm:p-5 shadow-xs">
+        <div className="text-[10px] sm:text-[11px] font-extrabold text-[#0F8A43] uppercase tracking-wider mb-1.5 sm:mb-2">
           MODEL SIGNAL
         </div>
-        <h4 className="text-base font-bold text-slate-900 leading-snug mb-2">
+        <h4 className="text-sm sm:text-base font-bold text-slate-900 leading-snug mb-1.5 sm:mb-2">
           {summary.bias_mw > 0
             ? `Evening ramp drives peaker dispatch (+${Math.round(summary.bias_mw)} MW short risk)`
             : `Wind surplus suppresses Day-Ahead clearing price`}
         </h4>
-        <p className="text-xs text-slate-600 leading-relaxed">
+        <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed">
           {summary.bias_mw > 0
             ? `At SP ${maxOverSP} (${maxOverTime} UTC), wind was over-forecasted by ${Math.round(maxOverMW)} MW. ${
                 overall
@@ -44,30 +44,30 @@ export const ModelSignalPanel: React.FC<ModelSignalPanelProps> = ({
         </p>
       </div>
 
-      <div className="bg-[#1E293B] text-white rounded-xl p-5 shadow-sm">
-        <div className="text-[11px] font-extrabold text-[#10B981] uppercase tracking-wider mb-3">
+      <div className="bg-[#1E293B] text-white rounded-xl p-3.5 sm:p-5 shadow-sm">
+        <div className="text-[10px] sm:text-[11px] font-extrabold text-[#10B981] uppercase tracking-wider mb-2.5 sm:mb-3">
           WATCH LIST
         </div>
 
-        <ul className="space-y-3 text-xs text-slate-300">
-          <li className="flex items-start gap-2.5">
-            <span className="w-2 h-2 rounded-xs bg-[#10B981] mt-1 shrink-0" />
+        <ul className="space-y-2.5 sm:space-y-3 text-[11px] sm:text-xs text-slate-300">
+          <li className="flex items-start gap-2">
+            <span className="w-1.5 h-1.5 rounded-xs bg-[#10B981] mt-1 shrink-0" />
             <span>
-              Peak wind generation reached <strong>{peakActual.toLocaleString()} MW</strong> at {peakTime} UTC (SP {peakRecord?.settlement_period}).
+              Peak wind reached <strong>{peakActual.toLocaleString()} MW</strong> at {peakTime} UTC (SP {peakRecord?.settlement_period}).
             </span>
           </li>
 
-          <li className="flex items-start gap-2.5">
-            <span className="w-2 h-2 rounded-xs bg-[#10B981] mt-1 shrink-0" />
+          <li className="flex items-start gap-2">
+            <span className="w-1.5 h-1.5 rounded-xs bg-[#10B981] mt-1 shrink-0" />
             <span>
-              Gate closure locked at <strong>{summary.decision_cutoff}</strong> with zero lookahead bias.
+              Gate closure locked at <strong>{summary.decision_cutoff}</strong> (no lookahead bias).
             </span>
           </li>
 
-          <li className="flex items-start gap-2.5">
-            <span className="w-2 h-2 rounded-xs bg-[#10B981] mt-1 shrink-0" />
+          <li className="flex items-start gap-2">
+            <span className="w-1.5 h-1.5 rounded-xs bg-[#10B981] mt-1 shrink-0" />
             <span>
-              Month-wide 90% confidence thermal safety reserve: <strong>±{overall?.confidence_buffer_90pct_mw.toLocaleString()} MW</strong>.
+              Month-wide 90% confidence reserve: <strong>±{overall?.confidence_buffer_90pct_mw.toLocaleString()} MW</strong>.
             </span>
           </li>
         </ul>

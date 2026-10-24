@@ -95,11 +95,11 @@ export const App: React.FC = () => {
         totalRecords={health?.total_actual_records ?? 0}
       />
 
-      <main className="max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 flex-1">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-6">
+      <main className="max-w-7xl w-full mx-auto px-3 sm:px-6 py-4 sm:py-6 flex-1">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-1.5 sm:gap-2 mb-4 sm:mb-6">
           <button
             onClick={() => setActiveTab('schedule')}
-            className={`py-2.5 px-4 rounded-lg text-xs font-bold transition cursor-pointer text-center ${
+            className={`py-2 sm:py-2.5 px-2.5 sm:px-4 rounded-lg text-[11px] sm:text-xs font-bold transition cursor-pointer text-center truncate ${
               activeTab === 'schedule'
                 ? 'bg-[#0F8A43] text-white shadow-xs'
                 : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50'
@@ -110,7 +110,7 @@ export const App: React.FC = () => {
 
           <button
             onClick={() => setActiveTab('assistant')}
-            className={`py-2.5 px-4 rounded-lg text-xs font-bold transition cursor-pointer text-center ${
+            className={`py-2 sm:py-2.5 px-2.5 sm:px-4 rounded-lg text-[11px] sm:text-xs font-bold transition cursor-pointer text-center truncate ${
               activeTab === 'assistant'
                 ? 'bg-[#0F8A43] text-white shadow-xs'
                 : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50'
@@ -121,61 +121,61 @@ export const App: React.FC = () => {
 
           <button
             onClick={() => setActiveTab('diurnal')}
-            className={`py-2.5 px-4 rounded-lg text-xs font-bold transition cursor-pointer text-center ${
+            className={`py-2 sm:py-2.5 px-2.5 sm:px-4 rounded-lg text-[11px] sm:text-xs font-bold transition cursor-pointer text-center truncate ${
               activeTab === 'diurnal'
                 ? 'bg-[#0F8A43] text-white shadow-xs'
                 : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50'
             }`}
           >
-            Diurnal Risk Profile
+            Diurnal Profile
           </button>
 
           <button
             onClick={() => setActiveTab('ledger')}
-            className={`py-2.5 px-4 rounded-lg text-xs font-bold transition cursor-pointer text-center ${
+            className={`py-2 sm:py-2.5 px-2.5 sm:px-4 rounded-lg text-[11px] sm:text-xs font-bold transition cursor-pointer text-center truncate ${
               activeTab === 'ledger'
                 ? 'bg-[#0F8A43] text-white shadow-xs'
                 : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50'
             }`}
           >
-            Settlement Ledger (48 SP)
+            Ledger (48 SP)
           </button>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 items-start mb-6 sm:mb-8">
           <div className="lg:col-span-4">
-            <div className="text-[11px] font-extrabold text-[#0F8A43] uppercase tracking-wider mb-2">
+            <div className="text-[10px] sm:text-[11px] font-extrabold text-[#0F8A43] uppercase tracking-wider mb-1 sm:mb-2">
               SIMULATE & FORECAST
             </div>
 
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight mb-3">
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight mb-2 sm:mb-3">
               Simulate Day-Ahead dispatch, unit commitment, and thermal hedging.
             </h1>
 
-            <p className="text-xs text-slate-600 leading-relaxed mb-6">
+            <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed mb-4 sm:mb-6">
               Evaluate national wind generation forecasts at <strong>Gate Closure (11:00 UTC)</strong>, quantify systematic forecast errors, and size additional thermal power procurement.
             </p>
 
-            <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-xs mb-4">
-              <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-3">
+            <div className="bg-white border border-slate-200 rounded-xl p-3 sm:p-4 shadow-xs mb-3 sm:mb-4">
+              <div className="text-[10px] sm:text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2.5">
                 SELECT DELIVERY PERIOD
               </div>
 
-              <div className="flex items-center gap-1.5 mb-3">
+              <div className="flex items-center gap-1.5 mb-2.5">
                 <button
                   onClick={handlePrevDay}
                   disabled={currentIndex <= 0}
-                  className="p-2 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 disabled:opacity-40 cursor-pointer shadow-xs"
+                  className="p-1.5 sm:p-2 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 disabled:opacity-40 cursor-pointer shadow-xs shrink-0"
                 >
-                  <ChevronLeft size={16} />
+                  <ChevronLeft size={15} />
                 </button>
 
-                <div className="flex-1 flex-center gap-2 px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200 flex items-center">
-                  <Calendar size={14} className="text-[#0F8A43]" />
+                <div className="flex-1 min-w-0 flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200">
+                  <Calendar size={13} className="text-[#0F8A43] shrink-0" />
                   <select
                     value={selectedDate}
                     onChange={(e) => setSelectedDate(e.target.value)}
-                    className="font-mono font-bold text-xs text-slate-900 bg-transparent w-full cursor-pointer outline-none"
+                    className="font-mono font-bold text-[11px] sm:text-xs text-slate-900 bg-transparent w-full cursor-pointer outline-none truncate"
                   >
                     {dates.map((d) => (
                       <option key={d} value={d}>
@@ -188,19 +188,19 @@ export const App: React.FC = () => {
                 <button
                   onClick={handleNextDay}
                   disabled={currentIndex >= dates.length - 1}
-                  className="p-2 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 disabled:opacity-40 cursor-pointer shadow-xs"
+                  className="p-1.5 sm:p-2 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 disabled:opacity-40 cursor-pointer shadow-xs shrink-0"
                 >
-                  <ChevronRight size={16} />
+                  <ChevronRight size={15} />
                 </button>
               </div>
 
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200">
-                <Clock size={14} className="text-sky-600" />
-                <span className="text-xs font-semibold text-slate-500">Gate:</span>
+              <div className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200">
+                <Clock size={13} className="text-sky-600 shrink-0" />
+                <span className="text-[11px] sm:text-xs font-semibold text-slate-500 shrink-0">Gate:</span>
                 <select
                   value={cutoffHour}
                   onChange={(e) => setCutoffHour(Number(e.target.value))}
-                  className="font-mono font-bold text-xs text-slate-900 bg-transparent w-full cursor-pointer outline-none"
+                  className="font-mono font-bold text-[11px] sm:text-xs text-slate-900 bg-transparent w-full cursor-pointer outline-none truncate"
                 >
                   <option value={9}>09:00 UTC (D-1)</option>
                   <option value={10}>10:00 UTC (D-1)</option>
@@ -221,11 +221,11 @@ export const App: React.FC = () => {
             </button>
           </div>
 
-          <div className="lg:col-span-8">
-            <div className="flex items-center gap-6 border-b border-slate-200 pb-2 mb-4 text-[11px] font-bold uppercase tracking-wider text-slate-500 overflow-x-auto">
+          <div className="lg:col-span-8 w-full min-w-0">
+            <div className="flex items-center gap-3 sm:gap-6 border-b border-slate-200 pb-1.5 sm:pb-2 mb-3 sm:mb-4 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-500 overflow-x-auto whitespace-nowrap">
               <button
                 onClick={() => setSubTab('curve')}
-                className={`cursor-pointer transition pb-1 border-b-2 ${
+                className={`cursor-pointer transition pb-1 border-b-2 shrink-0 ${
                   subTab === 'curve' ? 'border-[#0F8A43] text-[#0F8A43]' : 'border-transparent hover:text-slate-900'
                 }`}
               >
@@ -234,16 +234,16 @@ export const App: React.FC = () => {
 
               <button
                 onClick={() => setSubTab('signals')}
-                className={`cursor-pointer transition pb-1 border-b-2 ${
+                className={`cursor-pointer transition pb-1 border-b-2 shrink-0 ${
                   subTab === 'signals' ? 'border-[#0F8A43] text-[#0F8A43]' : 'border-transparent hover:text-slate-900'
                 }`}
               >
-                MODEL SIGNALS & WATCHLIST
+                SIGNALS & WATCHLIST
               </button>
 
               <button
                 onClick={() => setSubTab('all')}
-                className={`cursor-pointer transition pb-1 border-b-2 ${
+                className={`cursor-pointer transition pb-1 border-b-2 shrink-0 ${
                   subTab === 'all' ? 'border-[#0F8A43] text-[#0F8A43]' : 'border-transparent hover:text-slate-900'
                 }`}
               >
@@ -253,7 +253,7 @@ export const App: React.FC = () => {
 
             {errorMessage && (
               <div className="p-3 mb-4 rounded-xl bg-rose-50 border border-rose-200 flex items-center gap-2 text-rose-800 text-xs">
-                <ShieldAlert size={16} />
+                <ShieldAlert size={16} className="shrink-0" />
                 <span>Connection Error: {errorMessage}</span>
               </div>
             )}
@@ -266,13 +266,13 @@ export const App: React.FC = () => {
             )}
 
             {isLoading ? (
-              <div className="bg-white rounded-xl border border-slate-200 p-12 text-center text-slate-500 shadow-xs">
+              <div className="bg-white rounded-xl border border-slate-200 p-8 sm:p-12 text-center text-slate-500 shadow-xs">
                 <div className="text-xs font-bold">Loading Day-Ahead settlement data...</div>
               </div>
             ) : dayAheadData ? (
               <>
                 {activeTab === 'schedule' && (
-                  <div className="space-y-6">
+                  <div className="space-y-4 sm:space-y-6">
                     {subTab === 'curve' && (
                       <SettlementChart
                         records={dayAheadData.records}
@@ -290,7 +290,7 @@ export const App: React.FC = () => {
                     )}
 
                     {subTab === 'all' && (
-                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-start">
                         <div className="lg:col-span-8">
                           <SettlementChart
                             records={dayAheadData.records}
