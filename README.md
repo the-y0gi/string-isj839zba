@@ -1,4 +1,4 @@
-# 🌬️Renewable Wind Forecasting & Thermal Procurement Decision Platform
+# Renewable Wind Forecasting & Thermal Procurement Decision Platform
 
 > **An enterprise-grade quantitative analytics and trading decision support system** engineered for a UK electricity utility participating in the Day-Ahead wholesale power market (EPEX SPOT / Nord Pool).
 
